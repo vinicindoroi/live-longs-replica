@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { createElement, useEffect } from "react";
+import { createElement, useEffect, useState } from "react";
 
 const PLAYER_ID = "vid-69f61cddac9b67e415ce2412";
 const PLAYER_SCRIPT =
@@ -34,7 +34,13 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
+const PITCH_DELAY_MS = 8 * 60 * 1000;
+
 function Home() {
+  const [pitchVisible, setPitchVisible] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const isDev = import.meta.env.DEV;
+
   useEffect(() => {
     if (document.getElementById("vturb-player-script")) return;
 
@@ -45,8 +51,43 @@ function Home() {
     document.head.appendChild(script);
   }, []);
 
+  useEffect(() => {
+    const timer = window.setTimeout(() => setPitchVisible(true), PITCH_DELAY_MS);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   return (
     <main className="page-shell">
+      {isDev && (
+        <div className="dev-menu">
+          <button
+            type="button"
+            className="dev-menu-toggle"
+            aria-label="Menu de desenvolvimento"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((v) => !v)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+
+          {menuOpen && (
+            <div className="dev-menu-panel">
+              <span className="dev-menu-title">Modo desenvolvimento</span>
+              <label className="dev-menu-row">
+                <input
+                  type="checkbox"
+                  checked={pitchVisible}
+                  onChange={(e) => setPitchVisible(e.target.checked)}
+                />
+                Ativar pitch (botão da VSL)
+              </label>
+            </div>
+          )}
+        </div>
+      )}
+
       <section className="content">
         <h1>
           FAÇA <span>ELA G@Z4R</span> EM MENOS DE 5 MINUTOS
@@ -77,7 +118,14 @@ function Home() {
             </div>,
           )}
         </div>
+
+        {pitchVisible && (
+          <a className="pitch-cta" href="#comprar">
+            QUERO GARANTIR AGORA
+          </a>
+        )}
       </section>
     </main>
   );
 }
+
