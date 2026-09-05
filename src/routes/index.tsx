@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { createElement, useEffect } from "react";
+import { createElement, useEffect, useState } from "react";
 
 const PLAYER_ID = "vid-69f61cddac9b67e415ce2412";
 const PLAYER_SCRIPT =
