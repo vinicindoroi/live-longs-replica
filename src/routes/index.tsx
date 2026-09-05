@@ -105,6 +105,7 @@ function Home() {
                 margin: "0 auto",
                 width: "100%",
                 maxWidth: "var(--player-vertical-width, 400px)",
+                aspectRatio: "9 / 16",
               },
             },
             <div slot="preload" className="player-preload" key="preload">
