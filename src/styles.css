@@ -142,3 +142,116 @@
     color: var(--color-foreground);
   }
 }
+
+/* VSL page (clone) */
+.page-shell {
+  color-scheme: dark;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: radial-gradient(circle at 35% 50%, #2a0a12 0%, #0a0505 100%);
+  color: #ffffff;
+  font-family: "PT Sans", Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-shell .content {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 1536px;
+  margin: 0 auto;
+  padding: 80px 24px 64px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.page-shell h1 {
+  max-width: 1024px;
+  margin: 0 0 24px;
+  font-size: 72px;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.page-shell h1 span {
+  color: #b3273a;
+}
+
+.page-shell p {
+  max-width: 768px;
+  margin: 0 0 48px;
+  color: #999999;
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.5;
+}
+
+.player-wrap {
+  width: 100%;
+  max-width: 896px;
+}
+
+.player-preload {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  padding-top: 178.22%;
+}
+
+.player-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.player-spinner {
+  width: 80px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(farthest-side, #e50914 94%, #0000) top/8px 8px no-repeat,
+    conic-gradient(#0000 30%, #e50914);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  animation: vsl-spin 0.75s infinite linear;
+}
+
+.player-percentage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+@keyframes vsl-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@media (max-width: 767px) {
+  .page-shell .content {
+    padding: 48px 16px 64px;
+  }
+
+  .page-shell h1 {
+    margin-bottom: 24px;
+    font-size: 36px;
+  }
+
+  .page-shell p {
+    margin-bottom: 48px;
+    font-size: 16px;
+  }
+}
