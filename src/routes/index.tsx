@@ -1,24 +1,83 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { createElement, useEffect } from "react";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+const PLAYER_ID = "vid-69f61cddac9b67e415ce2412";
+const PLAYER_SCRIPT =
+  "https://scripts.converteai.net/a30937b9-5a3c-4cd5-bff6-7f6144148fd2/players/69f61cddac9b67e415ce2412/v4/player.js";
+
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "VendaExpress | Apresentação" },
+      { name: "description", content: "Confira nossa apresentação exclusiva." },
+      { property: "og:title", content: "VendaExpress | Apresentação" },
+      {
+        property: "og:description",
+        content: "Confira nossa apresentação exclusiva.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap",
+      },
+    ],
+  }),
+  component: Home,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function Home() {
+  useEffect(() => {
+    if (document.getElementById("vturb-player-script")) return;
+
+    const script = document.createElement("script");
+    script.id = "vturb-player-script";
+    script.src = PLAYER_SCRIPT;
+    script.async = true;
+    document.head.appendChild(script);
+  }, []);
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="page-shell">
+      <section className="content">
+        <h1>
+          FAÇA <span>ELA G@Z4R</span> EM MENOS DE 5 MINUTOS
+        </h1>
+
+        <p>Assista até o final antes que esse vídeo saia do ar. 🔞</p>
+
+        <div className="player-wrap">
+          {createElement(
+            "vturb-smartplayer",
+            {
+              id: PLAYER_ID,
+              style: {
+                display: "block",
+                margin: "0 auto",
+                width: "100%",
+                maxWidth: "var(--player-vertical-width, 400px)",
+              },
+            },
+            <div slot="preload" className="player-preload" key="preload">
+              <div
+                id="loading_69f61cddac9b67e415ce2412"
+                className="player-loading"
+              >
+                <div className="player-spinner" />
+                <div className="player-percentage">99%</div>
+              </div>
+            </div>,
+          )}
+        </div>
+      </section>
+    </main>
   );
 }
