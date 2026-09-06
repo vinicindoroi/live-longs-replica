@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BonustgRouteImport } from './routes/bonustg'
 import { Route as UpRouteImport } from './routes/up'
 import { Route as UpsellRouteImport } from './routes/upsell'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BonustgRoute = BonustgRouteImport.update({
+  id: '/bonustg',
+  path: '/bonustg',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UpRoute = UpRouteImport.update({
@@ -31,30 +37,34 @@ const UpsellRoute = UpsellRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bonustg': typeof BonustgRoute
   '/up': typeof UpRoute
   '/upsell': typeof UpsellRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bonustg': typeof BonustgRoute
   '/up': typeof UpRoute
   '/upsell': typeof UpsellRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bonustg': typeof BonustgRoute
   '/up': typeof UpRoute
   '/upsell': typeof UpsellRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/up' | '/upsell'
+  fullPaths: '/' | '/bonustg' | '/up' | '/upsell'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/up' | '/upsell'
-  id: '__root__' | '/' | '/up' | '/upsell'
+  to: '/' | '/bonustg' | '/up' | '/upsell'
+  id: '__root__' | '/' | '/bonustg' | '/up' | '/upsell'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BonustgRoute: typeof BonustgRoute
   UpRoute: typeof UpRoute
   UpsellRoute: typeof UpsellRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bonustg': {
+      id: '/bonustg'
+      path: '/bonustg'
+      fullPath: '/bonustg'
+      preLoaderRoute: typeof BonustgRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/up': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BonustgRoute: BonustgRoute,
   UpRoute: UpRoute,
   UpsellRoute: UpsellRoute,
 }
