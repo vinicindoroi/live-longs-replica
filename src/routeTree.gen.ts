@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BonustgRouteImport } from './routes/bonustg'
+import { Route as UpRouteImport } from './routes/up'
+import { Route as UpsellRouteImport } from './routes/upsell'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BonustgRoute = BonustgRouteImport.update({
+  id: '/bonustg',
+  path: '/bonustg',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UpRoute = UpRouteImport.update({
+  id: '/up',
+  path: '/up',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UpsellRoute = UpsellRouteImport.update({
+  id: '/upsell',
+  path: '/upsell',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bonustg': typeof BonustgRoute
+  '/up': typeof UpRoute
+  '/upsell': typeof UpsellRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bonustg': typeof BonustgRoute
+  '/up': typeof UpRoute
+  '/upsell': typeof UpsellRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bonustg': typeof BonustgRoute
+  '/up': typeof UpRoute
+  '/upsell': typeof UpsellRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/bonustg' | '/up' | '/upsell'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/bonustg' | '/up' | '/upsell'
+  id: '__root__' | '/' | '/bonustg' | '/up' | '/upsell'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BonustgRoute: typeof BonustgRoute
+  UpRoute: typeof UpRoute
+  UpsellRoute: typeof UpsellRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bonustg': {
+      id: '/bonustg'
+      path: '/bonustg'
+      fullPath: '/bonustg'
+      preLoaderRoute: typeof BonustgRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/up': {
+      id: '/up'
+      path: '/up'
+      fullPath: '/up'
+      preLoaderRoute: typeof UpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/upsell': {
+      id: '/upsell'
+      path: '/upsell'
+      fullPath: '/upsell'
+      preLoaderRoute: typeof UpsellRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BonustgRoute: BonustgRoute,
+  UpRoute: UpRoute,
+  UpsellRoute: UpsellRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

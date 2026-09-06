@@ -339,3 +339,76 @@
     transform: none;
   }
 }
+
+/* Upsell / bônus pages */
+.up-page {
+  background: linear-gradient(to bottom, #000, hsl(240 100% 10%));
+  color: #fff;
+}
+
+.up-success {
+  width: 100%;
+  padding: 12px 10px;
+  background: #fff;
+  color: #69d84f;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.up-audio {
+  width: 100%;
+  padding: 14px 10px 8px;
+  background: linear-gradient(180deg, #2e2ca8 0%, #201d7d 100%);
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.up-alert {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #ff5b43 0%, #d12d1f 100%);
+  box-shadow:
+    0 3px 0 #8f1c14,
+    0 6px 14px rgb(0 0 0 / 35%);
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.15;
+  text-align: center;
+  text-shadow:
+    0 1px 0 rgb(0 0 0 / 25%),
+    0 2px 2px rgb(0 0 0 / 25%);
+}
+
+.upsell-page {
+  background: linear-gradient(to bottom, #000, hsl(0 100% 20%));
+}
+
+.upsell-page img {
+  max-width: 100%;
+}
+
+@media (max-width: 767px) {
+  .up-success {
+    font-size: 18px;
+  }
+
+  .up-audio {
+    font-size: 14px;
+  }
+
+  .up-alert {
+    padding: 7px 10px;
+    font-size: 14px;
+  }
+}
