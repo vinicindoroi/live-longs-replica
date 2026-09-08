@@ -325,9 +325,17 @@
   animation: pitch-in 0.4s ease-out;
 }
 
+.pitch-cta-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  animation: none;
+}
+
 .pitch-cta:hover {
   background: #d02d44;
 }
+
 
 @keyframes pitch-in {
   from {
