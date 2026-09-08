@@ -29,6 +29,32 @@ export const Route = createFileRoute("/")({
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap",
       },
+      {
+        rel: "preload",
+        href: "https://scripts.converteai.net/2223d7db-1826-46ab-bf08-708ee5b93e74/players/6aa026b8d4e4aae90635f4e4/v4/player.js",
+        as: "script",
+      },
+      {
+        rel: "preload",
+        href: "https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js",
+        as: "script",
+      },
+      {
+        rel: "preload",
+        href: "https://cdn.converteai.net/2223d7db-1826-46ab-bf08-708ee5b93e74/6aa026ac8143aac58dda2289/main.m3u8",
+        as: "fetch",
+      },
+      { rel: "dns-prefetch", href: "https://cdn.converteai.net" },
+      { rel: "dns-prefetch", href: "https://scripts.converteai.net" },
+      { rel: "dns-prefetch", href: "https://images.converteai.net" },
+      { rel: "dns-prefetch", href: "https://license.vturb.com" },
+    ],
+    scripts: [
+      {
+        type: "text/javascript",
+        children:
+          '!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);',
+      },
     ],
   }),
   component: Home,
