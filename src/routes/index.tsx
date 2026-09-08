@@ -4,10 +4,7 @@ import { BlackV1 } from "@/components/black-v1";
 import { WhiteTsl } from "@/components/white-tsl";
 
 export const Route = createFileRoute("/")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    utm_campaign:
-      typeof search.utm_campaign === "string" ? search.utm_campaign : undefined,
-  }),
+
 
   head: () => ({
     meta: [
