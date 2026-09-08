@@ -120,6 +120,7 @@ export function BlackV1({
             rel="noopener noreferrer"
             aria-hidden={!pitchVisible}
             tabIndex={pitchVisible ? 0 : -1}
+            onClick={() => window.trkFunnel?.step("sexcheckout")}
           >
             QUERO GARANTIR AGORA
           </a>
