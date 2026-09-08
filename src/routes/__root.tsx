@@ -101,6 +101,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1088709063702412');fbq('track','PageView');",
       },
       {
+        type: "text/javascript",
+        children:
+          "(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,'clarity','script','yf5ewb8icb');",
+      },
+      {
         src: "https://click-charm-73.lovable.app/funnel.js?w=976e24b0-6a4d-4dd1-90af-7b0e1f18cfdd&f=45736766-7040-4afd-aa5c-10c883bdd573",
         defer: true,
         "data-auto": "true",
