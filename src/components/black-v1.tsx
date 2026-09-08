@@ -19,6 +19,11 @@ export function BlackV1({
 }) {
   const hostRef = useRef<HTMLDivElement>(null);
 
+  // Dispara a etapa da VSL quando o usuário entra na página.
+  useEffect(() => {
+    window.trkFunnel?.step("etapa_vsl");
+  }, []);
+
   useEffect(() => {
     const host = hostRef.current;
     if (!host || host.childElementCount > 0) return;
