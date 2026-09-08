@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createElement, useEffect, useState } from "react";
 
-const PLAYER_ID = "vid-69f61cddac9b67e415ce2412";
+const PLAYER_ID = "vid-6aa026b8d4e4aae90635f4e4";
 const PLAYER_SCRIPT =
-  "https://scripts.converteai.net/a30937b9-5a3c-4cd5-bff6-7f6144148fd2/players/69f61cddac9b67e415ce2412/v4/player.js";
+  "https://scripts.converteai.net/2223d7db-1826-46ab-bf08-708ee5b93e74/players/6aa026b8d4e4aae90635f4e4/v4/player.js";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -110,7 +110,7 @@ function Home() {
             },
             <div slot="preload" className="player-preload" key="preload">
               <div
-                id="loading_69f61cddac9b67e415ce2412"
+                id="loading_6aa026b8d4e4aae90635f4e4"
                 className="player-loading"
               >
                 <div className="player-spinner" />
