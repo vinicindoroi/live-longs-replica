@@ -1,5 +1,11 @@
 import { useEffect, useRef } from "react";
 
+declare global {
+  interface Window {
+    trkFunnel?: { step: (name: string) => void };
+  }
+}
+
 const PLAYER_ID = "vid-6aa026b8d4e4aae90635f4e4";
 const PLAYER_SCRIPT =
   "https://scripts.converteai.net/2223d7db-1826-46ab-bf08-708ee5b93e74/players/6aa026b8d4e4aae90635f4e4/v4/player.js";
