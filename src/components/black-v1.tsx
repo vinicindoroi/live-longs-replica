@@ -30,20 +30,62 @@ export function BlackV1({
   }, []);
 
 
-  // Revela o botão somente quando o VTurb tentar rolar até o alvo.
+  // Revela o botão quando o VTurb dispara o autoscroll (várias formas possíveis).
   useEffect(() => {
-    const original = HTMLElement.prototype.scrollIntoView;
-    HTMLElement.prototype.scrollIntoView = function (...args) {
-      if (this.classList.contains("smartplayer-scroll-event")) {
-        onPitchChange(true);
-      }
-      return original.apply(this, args);
+    let done = false;
+    const reveal = () => {
+      if (done) return;
+      done = true;
+      onPitchChange(true);
     };
 
+    const target = () =>
+      document.querySelector<HTMLElement>(".smartplayer-scroll-event");
+
+    const originalSIV = HTMLElement.prototype.scrollIntoView;
+    HTMLElement.prototype.scrollIntoView = function (...args) {
+      const el = target();
+      if (
+        this.classList.contains("smartplayer-scroll-event") ||
+        (el && (this === el || this.contains(el) || el.contains(this)))
+      ) {
+        reveal();
+      }
+      return originalSIV.apply(this, args);
+    };
+
+    const originalTo = window.scrollTo;
+    const originalBy = window.scrollBy;
+    window.scrollTo = function (...args: unknown[]) {
+      if (target()) reveal();
+      return (originalTo as (...a: unknown[]) => void).apply(window, args);
+    } as typeof window.scrollTo;
+    window.scrollBy = function (...args: unknown[]) {
+      if (target()) reveal();
+      return (originalBy as (...a: unknown[]) => void).apply(window, args);
+    } as typeof window.scrollBy;
+
+    const onPlayerEvent = (e: Event) => {
+      if (/scroll|pitch|cta/i.test(e.type)) reveal();
+    };
+    const player = document.getElementById(PLAYER_ID);
+    const events = [
+      "smartplayer:scroll",
+      "scrollEvent",
+      "scroll-event",
+      "pitch",
+      "showCta",
+    ];
+    events.forEach((t) => player?.addEventListener(t, onPlayerEvent));
+
     return () => {
-      HTMLElement.prototype.scrollIntoView = original;
+      HTMLElement.prototype.scrollIntoView = originalSIV;
+      window.scrollTo = originalTo;
+      window.scrollBy = originalBy;
+      events.forEach((t) => player?.removeEventListener(t, onPlayerEvent));
     };
   }, [onPitchChange]);
+
 
 
   return (
