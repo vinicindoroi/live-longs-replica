@@ -147,7 +147,12 @@ function Home() {
         </div>
 
         {pitchVisible && (
-          <a className="pitch-cta" href="#comprar">
+          <a
+            className="pitch-cta"
+            href="https://livelong.vita-protocol.online/acesso"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             QUERO GARANTIR AGORA
           </a>
         )}
