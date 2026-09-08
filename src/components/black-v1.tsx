@@ -1,4 +1,4 @@
-import { createElement, useEffect, useState } from "react";
+import { createElement, useEffect } from "react";
 
 const PLAYER_ID = "vid-6aa026b8d4e4aae90635f4e4";
 const PLAYER_SCRIPT =
@@ -75,8 +75,4 @@ export function BlackV1({
       </section>
     </main>
   );
-}
-
-export function useBlackPitchState() {
-  return useState(false);
 }

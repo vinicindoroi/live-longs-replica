@@ -412,3 +412,160 @@
     font-size: 14px;
   }
 }
+
+/* White TSL version */
+.tsl-page {
+  min-height: 100vh;
+  background: #ffffff;
+  color: #16181d;
+  font-family: "PT Sans", Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tsl-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 20px 96px;
+  font-size: 19px;
+  line-height: 1.7;
+}
+
+.tsl-eyebrow {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.tsl-page h1 {
+  margin: 0 0 20px;
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.tsl-lead {
+  margin: 0 0 28px;
+  color: #374151;
+  font-size: 21px;
+}
+
+.tsl-page hr {
+  margin: 0 0 28px;
+  border: 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+.tsl-page p {
+  margin: 0 0 20px;
+}
+
+.tsl-page h2 {
+  margin: 40px 0 14px;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.tsl-bullets {
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.tsl-bullets li {
+  position: relative;
+  margin-bottom: 12px;
+  padding-left: 30px;
+}
+
+.tsl-bullets li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #15803d;
+  font-weight: 700;
+}
+
+.tsl-quote {
+  margin: 32px 0;
+  padding: 18px 22px;
+  border-left: 4px solid #16181d;
+  background: #f6f7f9;
+  font-style: italic;
+}
+
+.tsl-quote cite {
+  display: block;
+  margin-top: 10px;
+  color: #6b7280;
+  font-size: 15px;
+  font-style: normal;
+}
+
+.tsl-faq dt {
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+.tsl-faq dd {
+  margin: 0 0 18px;
+  color: #374151;
+}
+
+.tsl-cta-box {
+  margin: 44px 0 24px;
+  padding: 28px 22px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #fafafa;
+  text-align: center;
+}
+
+.tsl-cta-note {
+  margin: 0 0 16px !important;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+.tsl-cta {
+  display: inline-block;
+  padding: 16px 32px;
+  border-radius: 10px;
+  background: #15803d;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.tsl-cta:hover {
+  background: #166534;
+}
+
+.tsl-disclaimer {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+@media (max-width: 767px) {
+  .tsl-wrap {
+    padding: 40px 18px 72px;
+    font-size: 17px;
+  }
+
+  .tsl-page h1 {
+    font-size: 30px;
+  }
+
+  .tsl-lead {
+    font-size: 18px;
+  }
+
+  .tsl-page h2 {
+    font-size: 22px;
+  }
+}
