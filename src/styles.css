@@ -569,3 +569,22 @@
     font-size: 22px;
   }
 }
+
+.dev-menu-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.dev-menu-link {
+  padding: 5px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.dev-menu-link:hover {
+  background: rgba(255, 255, 255, 0.12);
+}

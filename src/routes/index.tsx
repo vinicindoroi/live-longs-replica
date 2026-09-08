@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { BlackV1 } from "@/components/black-v1";
 import { WhiteTsl } from "@/components/white-tsl";
+import { useDevPitch, useDevVersion } from "@/components/dev-menu";
+
 
 export const Route = createFileRoute("/")({
 
@@ -63,77 +65,25 @@ export const Route = createFileRoute("/")({
 type Version = "black" | "tsl";
 
 function Home() {
-  const [version, setVersion] = useState<Version>("tsl");
-  const [pitchVisible, setPitchVisible] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const isDev = import.meta.env.DEV;
+  const [urlVersion, setUrlVersion] = useState<Version>("tsl");
+  const { override } = useDevVersion();
+  const { pitch, setPitch } = useDevPitch();
 
   useEffect(() => {
     const campaign = (
       new URLSearchParams(window.location.search).get("utm_campaign") ?? ""
     ).toLowerCase();
-    setVersion(campaign.includes("sex") ? "black" : "tsl");
+    setUrlVersion(campaign.includes("sex") ? "black" : "tsl");
   }, []);
 
-  return (
-    <>
-      {isDev && (
-        <div className="dev-menu">
-          <button
-            type="button"
-            className="dev-menu-toggle"
-            aria-label="Menu de desenvolvimento"
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((v) => !v)}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
+  const version = override ?? urlVersion;
 
-          {menuOpen && (
-            <div className="dev-menu-panel">
-              <span className="dev-menu-title">Modo desenvolvimento</span>
-              <label className="dev-menu-row">
-                <input
-                  type="radio"
-                  name="version"
-                  checked={version === "black"}
-                  onChange={() => setVersion("black")}
-                />
-                Black v1 (VSL)
-              </label>
-              <label className="dev-menu-row">
-                <input
-                  type="radio"
-                  name="version"
-                  checked={version === "tsl"}
-                  onChange={() => setVersion("tsl")}
-                />
-                White (TSL)
-              </label>
-              {version === "black" && (
-                <label className="dev-menu-row">
-                  <input
-                    type="checkbox"
-                    checked={pitchVisible}
-                    onChange={(e) => setPitchVisible(e.target.checked)}
-                  />
-                  Ativar pitch (botão da VSL)
-                </label>
-              )}
-            </div>
-          )}
-        </div>
-      )}
-
-      {version === "black" ? (
-        <BlackV1 pitchVisible={pitchVisible} onPitchChange={setPitchVisible} />
-      ) : (
-        <WhiteTsl />
-      )}
-    </>
+  return version === "black" ? (
+    <BlackV1 pitchVisible={pitch} onPitchChange={setPitch} />
+  ) : (
+    <WhiteTsl />
   );
 }
+
 
 
