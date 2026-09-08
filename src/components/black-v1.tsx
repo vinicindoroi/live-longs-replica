@@ -1,5 +1,11 @@
 import { useEffect, useRef } from "react";
 
+declare global {
+  interface Window {
+    trkFunnel?: { step: (name: string) => void };
+  }
+}
+
 const PLAYER_ID = "vid-6aa026b8d4e4aae90635f4e4";
 const PLAYER_SCRIPT =
   "https://scripts.converteai.net/2223d7db-1826-46ab-bf08-708ee5b93e74/players/6aa026b8d4e4aae90635f4e4/v4/player.js";
@@ -12,6 +18,11 @@ export function BlackV1({
   onPitchChange: (v: boolean) => void;
 }) {
   const hostRef = useRef<HTMLDivElement>(null);
+
+  // Dispara a etapa da VSL quando o usuário entra na página.
+  useEffect(() => {
+    window.trkFunnel?.step("etapa_vsl");
+  }, []);
 
   useEffect(() => {
     const host = hostRef.current;
@@ -109,6 +120,7 @@ export function BlackV1({
             rel="noopener noreferrer"
             aria-hidden={!pitchVisible}
             tabIndex={pitchVisible ? 0 : -1}
+            onClick={() => window.trkFunnel?.step("sexcheckout")}
           >
             QUERO GARANTIR AGORA
           </a>
