@@ -1,10 +1,8 @@
-import { createElement, useEffect, useRef } from "react";
+import { createElement, useEffect } from "react";
 
 const PLAYER_ID = "vid-6aa026b8d4e4aae90635f4e4";
 const PLAYER_SCRIPT =
   "https://scripts.converteai.net/2223d7db-1826-46ab-bf08-708ee5b93e74/players/6aa026b8d4e4aae90635f4e4/v4/player.js";
-
-const PITCH_DELAY_MS = 8 * 60 * 1000;
 
 export function BlackV1({
   pitchVisible,
@@ -13,8 +11,6 @@ export function BlackV1({
   pitchVisible: boolean;
   onPitchChange: (v: boolean) => void;
 }) {
-  const ctaRef = useRef<HTMLAnchorElement>(null);
-
   useEffect(() => {
     if (document.getElementById("vturb-player-script")) return;
 
@@ -25,24 +21,18 @@ export function BlackV1({
     document.head.appendChild(script);
   }, []);
 
+  // Revela o botão somente quando o VTurb tentar rolar até o alvo.
   useEffect(() => {
-    const timer = window.setTimeout(() => onPitchChange(true), PITCH_DELAY_MS);
-    return () => window.clearTimeout(timer);
-  }, [onPitchChange]);
-
-  // Revela o botão assim que o VTurb tentar rolar até ele (autoscroll).
-  useEffect(() => {
-    const el = ctaRef.current;
-    if (!el) return;
-
-    const original = el.scrollIntoView.bind(el);
-    el.scrollIntoView = ((...args: unknown[]) => {
-      onPitchChange(true);
-      return (original as (...a: unknown[]) => void)(...args);
-    }) as typeof el.scrollIntoView;
+    const original = HTMLElement.prototype.scrollIntoView;
+    HTMLElement.prototype.scrollIntoView = function (...args) {
+      if (this.classList.contains("smartplayer-scroll-event")) {
+        onPitchChange(true);
+      }
+      return original.apply(this, args);
+    };
 
     return () => {
-      delete (el as unknown as { scrollIntoView?: unknown }).scrollIntoView;
+      HTMLElement.prototype.scrollIntoView = original;
     };
   }, [onPitchChange]);
 
@@ -81,16 +71,18 @@ export function BlackV1({
           )}
         </div>
 
-        <a
-          ref={ctaRef}
-          className={`pitch-cta smartplayer-scroll-event${pitchVisible ? "" : " pitch-cta-hidden"}`}
-          href="https://livelong.vita-protocol.online/acesso"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-hidden={!pitchVisible}
-        >
-          QUERO GARANTIR AGORA
-        </a>
+        <div className={`pitch-cta-guard${pitchVisible ? " pitch-cta-visible" : ""}`}>
+          <a
+            className="pitch-cta smartplayer-scroll-event"
+            href="https://livelong.vita-protocol.online/acesso"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-hidden={!pitchVisible}
+            tabIndex={pitchVisible ? 0 : -1}
+          >
+            QUERO GARANTIR AGORA
+          </a>
+        </div>
 
       </section>
     </main>
