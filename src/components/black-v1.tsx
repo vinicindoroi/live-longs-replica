@@ -1,4 +1,4 @@
-import { createElement, useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const PLAYER_ID = "vid-6aa026b8d4e4aae90635f4e4";
 const PLAYER_SCRIPT =
@@ -11,8 +11,16 @@ export function BlackV1({
   pitchVisible: boolean;
   onPitchChange: (v: boolean) => void;
 }) {
+  const hostRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    if (document.getElementById("vturb-player-script")) return;
+    const host = hostRef.current;
+    if (!host || host.childElementCount > 0) return;
+
+    host.innerHTML = `<vturb-smartplayer id="${PLAYER_ID}" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"><div class="vturb-player-placeholder" style="position: relative; width: 100%; padding: 178.21782178217822% 0 0; z-index: 0; background-color: black;"></div></vturb-smartplayer>`;
+
+    const old = document.getElementById("vturb-player-script");
+    if (old) old.remove();
 
     const script = document.createElement("script");
     script.id = "vturb-player-script";
@@ -20,6 +28,7 @@ export function BlackV1({
     script.async = true;
     document.head.appendChild(script);
   }, []);
+
 
   // Revela o botão somente quando o VTurb tentar rolar até o alvo.
   useEffect(() => {
@@ -46,30 +55,9 @@ export function BlackV1({
 
         <p>Assista até o final antes que esse vídeo saia do ar. 🔞</p>
 
-        <div className="player-wrap">
-          {createElement(
-            "vturb-smartplayer",
-            {
-              id: PLAYER_ID,
-              style: {
-                display: "block",
-                margin: "0 auto",
-                width: "100%",
-                maxWidth: "var(--player-vertical-width, 400px)",
-                aspectRatio: "9 / 16",
-              },
-            },
-            <div slot="preload" className="player-preload" key="preload">
-              <div
-                id="loading_6aa026b8d4e4aae90635f4e4"
-                className="player-loading"
-              >
-                <div className="player-spinner" />
-                <div className="player-percentage">99%</div>
-              </div>
-            </div>,
-          )}
-        </div>
+        <div className="player-wrap" ref={hostRef} />
+
+
 
         <div className={`pitch-cta-guard${pitchVisible ? " pitch-cta-visible" : ""}`}>
           <a
