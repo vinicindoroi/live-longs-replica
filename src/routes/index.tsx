@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { BlackV1 } from "@/components/black-v1";
 import { WhiteTsl } from "@/components/white-tsl";
+import { useDevPitch, useDevVersion } from "@/components/dev-menu";
+
 
 export const Route = createFileRoute("/")({
 
