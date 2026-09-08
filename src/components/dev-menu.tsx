@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 export type Version = "black" | "tsl";
 
 const VERSION_KEY = "dev:version";
-const PITCH_KEY = "dev:pitch";
 const EVENT = "dev-settings-change";
+const PITCH_EVENT = "dev-pitch-change";
 
 function read(key: string) {
   try {
@@ -47,10 +47,26 @@ export function useDevVersion() {
 }
 
 export function useDevPitch() {
-  const [value, set] = useDevSetting(PITCH_KEY, "0");
+  const [pitch, setPitchState] = useState(false);
+
+  useEffect(() => {
+    const sync = (event: Event) => {
+      if (event instanceof CustomEvent && typeof event.detail === "boolean") {
+        setPitchState(event.detail);
+      }
+    };
+    window.addEventListener(PITCH_EVENT, sync);
+    return () => window.removeEventListener(PITCH_EVENT, sync);
+  }, []);
+
+  const setPitch = (value: boolean) => {
+    setPitchState(value);
+    window.dispatchEvent(new CustomEvent(PITCH_EVENT, { detail: value }));
+  };
+
   return {
-    pitch: value === "1",
-    setPitch: (v: boolean) => set(v ? "1" : "0"),
+    pitch,
+    setPitch,
   };
 }
 

@@ -325,11 +325,20 @@
   animation: pitch-in 0.4s ease-out;
 }
 
-.pitch-cta-hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  animation: none;
+.pitch-cta-guard {
+  height: 0;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  overflow: hidden;
+}
+
+.pitch-cta-guard.pitch-cta-visible {
+  height: auto;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  overflow: visible;
 }
 
 .pitch-cta:hover {
