@@ -55,21 +55,23 @@ export function BlackV1({
                 display: "block",
                 margin: "0 auto",
                 width: "100%",
-                maxWidth: "var(--player-vertical-width, 400px)",
-                aspectRatio: "9 / 16",
+                maxWidth: "400px",
               },
             },
-            <div slot="preload" className="player-preload" key="preload">
-              <div
-                id="loading_6aa026b8d4e4aae90635f4e4"
-                className="player-loading"
-              >
-                <div className="player-spinner" />
-                <div className="player-percentage">99%</div>
-              </div>
-            </div>,
+            <div
+              key="placeholder"
+              className="vturb-player-placeholder"
+              style={{
+                position: "relative",
+                width: "100%",
+                padding: "178.21782178217822% 0 0",
+                zIndex: 0,
+                backgroundColor: "black",
+              }}
+            />,
           )}
         </div>
+
 
         <div className={`pitch-cta-guard${pitchVisible ? " pitch-cta-visible" : ""}`}>
           <a
