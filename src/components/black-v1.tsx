@@ -55,31 +55,8 @@ export function BlackV1({
 
         <p>Assista até o final antes que esse vídeo saia do ar. 🔞</p>
 
-        <div className="player-wrap">
-          {createElement(
-            "vturb-smartplayer",
-            {
-              id: PLAYER_ID,
-              style: {
-                display: "block",
-                margin: "0 auto",
-                width: "100%",
-                maxWidth: "400px",
-              },
-            },
-            <div
-              key="placeholder"
-              className="vturb-player-placeholder"
-              style={{
-                position: "relative",
-                width: "100%",
-                padding: "178.21782178217822% 0 0",
-                zIndex: 0,
-                backgroundColor: "black",
-              }}
-            />,
-          )}
-        </div>
+        <div className="player-wrap" ref={hostRef} />
+
 
 
         <div className={`pitch-cta-guard${pitchVisible ? " pitch-cta-visible" : ""}`}>
