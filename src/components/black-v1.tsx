@@ -1,4 +1,4 @@
-import { createElement, useEffect } from "react";
+import { createElement, useEffect, useRef } from "react";
 
 const PLAYER_ID = "vid-6aa026b8d4e4aae90635f4e4";
 const PLAYER_SCRIPT =
@@ -13,6 +13,8 @@ export function BlackV1({
   pitchVisible: boolean;
   onPitchChange: (v: boolean) => void;
 }) {
+  const ctaRef = useRef<HTMLAnchorElement>(null);
+
   useEffect(() => {
     if (document.getElementById("vturb-player-script")) return;
 
@@ -27,6 +29,23 @@ export function BlackV1({
     const timer = window.setTimeout(() => onPitchChange(true), PITCH_DELAY_MS);
     return () => window.clearTimeout(timer);
   }, [onPitchChange]);
+
+  // Revela o botão assim que o VTurb tentar rolar até ele (autoscroll).
+  useEffect(() => {
+    const el = ctaRef.current;
+    if (!el) return;
+
+    const original = el.scrollIntoView.bind(el);
+    el.scrollIntoView = ((...args: unknown[]) => {
+      onPitchChange(true);
+      return (original as (...a: unknown[]) => void)(...args);
+    }) as typeof el.scrollIntoView;
+
+    return () => {
+      delete (el as unknown as { scrollIntoView?: unknown }).scrollIntoView;
+    };
+  }, [onPitchChange]);
+
 
   return (
     <main className="page-shell">
