@@ -81,16 +81,17 @@ export function BlackV1({
           )}
         </div>
 
-        {pitchVisible && (
-          <a
-            className="pitch-cta"
-            href="https://livelong.vita-protocol.online/acesso"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            QUERO GARANTIR AGORA
-          </a>
-        )}
+        <a
+          ref={ctaRef}
+          className={`pitch-cta smartplayer-scroll-event${pitchVisible ? "" : " pitch-cta-hidden"}`}
+          href="https://livelong.vita-protocol.online/acesso"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-hidden={!pitchVisible}
+        >
+          QUERO GARANTIR AGORA
+        </a>
+
       </section>
     </main>
   );
